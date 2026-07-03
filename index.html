@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Образовательные программы — Университет биотехнологий</title>
+<meta name="description" content="Каталог магистерских и специалитетских программ Университета биотехнологий: агробиотехнологии, интеллектуальные инженерные системы, защита растений.">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap');
+
+  :root{
+    --paper:#faf9f5;
+    --paper2:#f4f1e8;
+    --ink:#1d211e;
+    --ink-soft:rgba(29,33,30,.68);
+    --ink-faint:rgba(29,33,30,.46);
+    --line:rgba(29,33,30,.14);
+    --green:#173f31;
+    --cream:#f2ecdd;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  ::selection{ background:var(--green); color:var(--cream); }
+
+  .wrap{ max-width:1200px; margin:0 auto; padding-left:clamp(20px,5vw,64px); padding-right:clamp(20px,5vw,64px); }
+
+  /* ---------- HEADER ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,249,245,.9);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  header.site .inner{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:24px; padding:16px 0; flex-wrap:wrap;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:34px; height:34px; border:1.6px solid var(--green); border-radius:2px;
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .brand-mark svg{ width:18px; height:18px; }
+  .brand-name{ font-size:14px; font-weight:600; line-height:1.25; }
+  .brand-sub{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:2px;
+  }
+  .site-eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-faint);
+  }
+
+  /* ---------- HERO ---------- */
+  section.hero{ padding:clamp(48px,8vw,96px) 0 clamp(32px,5vw,56px); border-bottom:1px solid var(--line); }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--green); font-weight:600;
+  }
+  h1.hero-title{
+    font-weight:600; font-size:clamp(38px,6vw,72px); line-height:1.02;
+    letter-spacing:-.022em; margin:18px 0 0; max-width:16ch;
+  }
+  p.hero-lede{
+    font-family:'Spectral', Georgia, serif; font-size:clamp(17px,1.5vw,21px);
+    line-height:1.55; max-width:52ch; margin:24px 0 0; color:var(--ink-soft);
+  }
+  .hero-meta{
+    display:flex; gap:0; flex-wrap:wrap; margin-top:40px; border-top:1px solid var(--line);
+  }
+  .hero-meta div{ padding:16px 28px 0 0; border-right:1px solid var(--line); margin-right:28px; }
+  .hero-meta div:last-child{ border-right:none; margin-right:0; }
+  .hero-meta .k{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-faint);
+  }
+  .hero-meta .v{ font-size:20px; font-weight:600; margin-top:5px; }
+
+  /* ---------- PROGRAM LIST ---------- */
+  section.programs{ padding:clamp(40px,6vw,64px) 0; }
+  .programs-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:20px; flex-wrap:wrap; margin-bottom:clamp(20px,3vw,32px);
+  }
+  .programs-head h2{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-faint); font-weight:600;
+  }
+  .programs-count{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-faint);
+  }
+
+  .program-row{
+    display:block;
+    border-top:1px solid var(--line);
+    background:var(--row-bg, var(--paper2));
+    color:var(--row-fg, var(--ink));
+    transition:padding-left .25s ease, background .25s ease;
+    position:relative;
+  }
+  .program-row:last-of-type{ border-bottom:1px solid var(--line); }
+  .program-row:hover{ padding-left:12px; }
+  .program-row:hover .row-arrow{ transform:translateX(6px); opacity:1; }
+
+  .program-row .inner{
+    display:grid;
+    grid-template-columns:64px 1.3fr 1.6fr auto;
+    gap:28px;
+    align-items:center;
+    padding:clamp(24px,3.2vw,34px) 0;
+  }
+  .row-index{
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
+    color:var(--row-accent, var(--green)); font-weight:600;
+    letter-spacing:.04em;
+  }
+  .row-title-block .row-eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.12em;
+    text-transform:uppercase; opacity:.62; display:block; margin-bottom:8px;
+  }
+  .row-title-block h3{
+    font-size:clamp(21px,2.4vw,30px); font-weight:600; line-height:1.12; letter-spacing:-.015em;
+  }
+  .row-desc{
+    font-family:'Spectral', Georgia, serif; font-size:16px; line-height:1.55;
+    opacity:.82; max-width:46ch;
+  }
+  .row-meta{ display:flex; align-items:center; gap:18px; justify-self:end; text-align:right; }
+  .row-meta .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em;
+    border:1px solid currentColor; opacity:.85; padding:6px 10px; white-space:nowrap;
+  }
+  .row-arrow{
+    width:20px; height:20px; opacity:.55; transition:transform .25s ease, opacity .25s ease; flex:none;
+  }
+
+  @media (max-width:860px){
+    .program-row .inner{
+      grid-template-columns:1fr; gap:14px; padding:28px 0;
+    }
+    .row-index{ order:-1; }
+    .row-meta{ justify-self:start; text-align:left; flex-wrap:wrap; }
+  }
+
+  /* ---------- ADD-NEW / TEMPLATE CARD ---------- */
+  .program-row.is-template{
+    border-style:dashed;
+    border-top:1px dashed var(--line);
+    background:transparent;
+    color:var(--ink-faint);
+    cursor:default;
+  }
+  .program-row.is-template:hover{ padding-left:0; }
+  .program-row.is-template .inner{ opacity:.7; }
+  .program-row.is-template h3{ font-weight:500; }
+
+  /* ---------- FOOTER ---------- */
+  footer.site{ border-top:1px solid var(--line); padding:32px 0 48px; }
+  footer.site .inner{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:16px; flex-wrap:wrap;
+  }
+  footer.site p{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.04em;
+    color:var(--ink-faint);
+  }
+
+  a:focus-visible, .program-row:focus-visible{
+    outline:2px solid var(--green); outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#173f31" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3c-4 3-7 6-7 10a7 7 0 0 0 14 0c0-4-3-7-7-10Z"/>
+          <path d="M12 8v12"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Университет биотехнологий</div>
+        <div class="brand-sub">Институт фундаментальных и прикладных агробиотехнологий</div>
+      </div>
+    </div>
+    <div class="site-eyebrow">Каталог программ · приём 2026</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Образовательные программы</span>
+    <h1 class="hero-title">Программы подготовки специалистов</h1>
+    <p class="hero-lede">Специалитет и магистратура на стыке агробиотехнологий, инженерных систем и цифровых технологий. Ниже — действующие программы института; страница служит общим входом в каждую из них.</p>
+    <div class="hero-meta">
+      <div>
+        <div class="k">Программ в каталоге</div>
+        <div class="v">3</div>
+      </div>
+      <div>
+        <div class="k">Уровни подготовки</div>
+        <div class="v">Специалитет · магистратура</div>
+      </div>
+      <div>
+        <div class="k">Приём</div>
+        <div class="v">2026 год</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programs">
+  <div class="wrap">
+    <div class="programs-head">
+      <h2>Действующие программы</h2>
+      <span class="programs-count">03 позиции</span>
+    </div>
+
+    <!--
+      ======================================================================
+      КАЖДАЯ ПРОГРАММА — это <a class="program-row"> со ссылкой на её index.html.
+      Цвет строки задаётся через CSS-переменные прямо в атрибуте style,
+      поэтому под новую программу не нужно писать отдельный CSS-класс.
+      ======================================================================
+    -->
+
+    <a class="program-row" href="pish/index.html"
+       style="--row-bg:var(--paper2); --row-fg:var(--ink); --row-accent:#173f31;">
+      <div class="wrap inner">
+        <div class="row-index">01</div>
+        <div class="row-title-block">
+          <span class="row-eyebrow">Передовая инженерная школа · ПИШ</span>
+          <h3>Автоматизация систем защищённого грунта</h3>
+        </div>
+        <p class="row-desc">Подготовка специалистов для управляемых агробиотехнических систем — тепличных комплексов, вертикальных ферм, замкнутых гидропонных и микроклиматических контуров.</p>
+        <div class="row-meta">
+          <span class="tag">Специалитет · магистратура</span>
+          <span class="tag">35.04.03</span>
+          <svg class="row-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <a class="program-row" href="intelligent_engineering_systems/index.html"
+       style="--row-bg:var(--paper2); --row-fg:var(--ink); --row-accent:#173f31;">
+      <div class="wrap inner">
+        <div class="row-index">02</div>
+        <div class="row-title-block">
+          <span class="row-eyebrow">Институт цифровых технологий</span>
+          <h3>Интеллектуальные инженерные системы</h3>
+        </div>
+        <p class="row-desc">Подготовка технических специалистов для разработки интеллектуальных инженерных систем: электроника, программирование, алгоритмы контроля и управления процессами.</p>
+        <div class="row-meta">
+          <span class="tag">Магистратура · очная</span>
+          <span class="tag">Приём 2026</span>
+          <svg class="row-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <a class="program-row" href="plant_protection/index.html"
+       style="--row-bg:var(--paper2); --row-fg:var(--ink); --row-accent:#173f31;">
+      <div class="wrap inner">
+        <div class="row-index">03</div>
+        <div class="row-title-block">
+          <span class="row-eyebrow">Исследовательский центр биозащиты растений</span>
+          <h3>Прикладные биотехнологии в защите растений</h3>
+        </div>
+        <p class="row-desc">Подготовка специалистов, способных создавать средства защиты растений, вести научную работу и руководить предприятиями аграрного сектора.</p>
+        <div class="row-meta">
+          <span class="tag">Магистратура</span>
+          <span class="tag">35.04.03 / 35.04.04</span>
+          <svg class="row-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!--
+      ======================================================================
+      ШАБЛОН ДЛЯ НОВОЙ ПРОГРАММЫ
+      ======================================================================
+      Чтобы добавить страницу:
+        1. Положите готовую страницу в гит по пути  <папка>/index.html
+           (так же, как pish/, intelligent_engineering_systems/, plant_protection/).
+        2. Скопируйте блок между "TEMPLATE START" и "TEMPLATE END" ниже,
+           вставьте его ПЕРЕД этим комментарием (то есть выше него, в конец
+           списка действующих программ) и раскомментируйте.
+        3. Замените:
+           - href                — путь к папке новой программы
+           - --row-accent        — акцентный цвет программы (обычно #173f31,
+                                    но можно другой, если у страницы своя айдентика)
+           - 04                  — порядковый номер (row-index)
+           - текст eyebrow / h3 / row-desc / тегов row-meta
+        4. Обновите счётчик "03 позиции" в .programs-head и число в hero-meta
+           ("Программ в каталоге").
+      Строку можно удалить целиком — при закрытии программы просто уберите
+      соответствующий <a class="program-row">...</a> блок.
+      ======================================================================
+
+      TEMPLATE START
+      <a class="program-row" href="НОВАЯ_ПАПКА/index.html"
+         style="--row-bg:var(--paper2); --row-fg:var(--ink); --row-accent:#173f31;">
+        <div class="wrap inner">
+          <div class="row-index">04</div>
+          <div class="row-title-block">
+            <span class="row-eyebrow">Название института / центра</span>
+            <h3>Название программы</h3>
+          </div>
+          <p class="row-desc">Краткое описание программы в 1–2 предложения.</p>
+          <div class="row-meta">
+            <span class="tag">Уровень подготовки</span>
+            <span class="tag">Код направления</span>
+            <svg class="row-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+      </a>
+      TEMPLATE END
+    -->
+
+    <div class="program-row is-template" aria-hidden="true">
+      <div class="wrap inner">
+        <div class="row-index">＋</div>
+        <div class="row-title-block">
+          <span class="row-eyebrow">Место для новой программы</span>
+          <h3>Скопируйте шаблон из комментария выше</h3>
+        </div>
+        <p class="row-desc">Каждая новая программа — это папка с index.html в корне репозитория и один блок в этом файле.</p>
+        <div class="row-meta"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap inner">
+    <p>Университет биотехнологий</p>
+    <p>Институт фундаментальных и прикладных агробиотехнологий</p>
+  </div>
+</footer>
+
+</body>
+</html>
